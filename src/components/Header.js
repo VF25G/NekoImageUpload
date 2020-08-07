@@ -22,6 +22,14 @@ const StyledLink = styled(NavLink)`
   }
 `
 
+const StyledLogin = styled.div`
+  margin-left: auto;
+`;
+
+const StyledButton = styled.button`
+  margin-left: 10px;
+`
+
 function Header() {
   return (
     <StyledHeader>
@@ -31,6 +39,14 @@ function Header() {
         <StyledLink to="/history" activeClassName="active">上传历史</StyledLink>
         <StyledLink to="/about" activeClassName="active">关于我</StyledLink>
       </nav>
+      <StyledLogin>
+        <StyledButton>
+          <StyledLink to="/login">登陆</StyledLink>
+        </StyledButton>
+        <StyledButton>
+          <StyledLink to="/register">注册</StyledLink>
+        </StyledButton>
+      </StyledLogin>
     </StyledHeader>
   )
 }
