@@ -43,4 +43,4 @@ const Uploader = {
   }
 }
 
-export { Auth }
+export { Auth, Uploader }
