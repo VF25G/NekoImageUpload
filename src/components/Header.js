@@ -1,6 +1,6 @@
 import React from 'react'
 import LogoUrl from './logo.svg'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 import {Button} from 'antd'
 import { useStores} from '../stores'
@@ -35,7 +35,7 @@ const StyledButton = styled(Button)`
 `
 
 const Header = observer(() => {
-  //const [isLogin, setIsLogin] = useState(false)
+  const history = useHistory()
   const { UserStore, AuthStore } = useStores()
 
   const handleLogout = () => {
@@ -43,9 +43,11 @@ const Header = observer(() => {
   }
   const handleLogin = () => {
     console.log('跳转到登录页面')
+    history.push('/login')
   }
   const handleRegister = () => {
     console.log('跳转到注册页面')
+    history.push('/register')
   }
 
   return (
