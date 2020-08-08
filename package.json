@@ -83,6 +83,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.10.5",
+    "antd": "^4.5.2",
     "mobx": "^5.15.5",
     "mobx-react": "^6.2.5",
     "react-router-dom": "^5.2.0",
@@ -143,7 +144,12 @@
       "react-app"
     ],
     "plugins": [
-      ["@babel/plugin-proposal-decorators", {"legacy": true}]
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
     ]
   }
 }
