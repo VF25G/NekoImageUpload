@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Input, Button, Checkbox} from 'antd'
+import { Form, Input, Button } from 'antd'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -17,16 +17,16 @@ const Title = styled.h1`
 
 const layout = {
   labelCol: {
-    span: 4,
+    span: 6,
   },
   wrapperCol: {
-    span: 20,
+    span: 18,
   },
 }
 const tailLayout = {
   wrapperCol: {
-    offset: 4,
-    span: 20,
+    offset: 6,
+    span: 18,
   },
 }
 
@@ -38,6 +38,21 @@ const Register = () => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
+
+  const validateUsername = (rule, value) => {
+    if (/\W/.test(value)) { return Promise.reject('只能是字母数字下划线')}
+    if (value.length < 4 || value.length > 12) { return Promise.reject('用户名长度为4～12个字符')}
+    return Promise.resolve()
+  }
+
+  const validateConfirm = ({getFieldValue}) => ({
+    validator(rule, value) {
+      if(getFieldValue('password') === value) {
+        return Promise.resolve()
+      }
+      return Promise.reject('两次密码不一致')
+    }
+  })
 
   return (
     <Wrapper>
@@ -56,6 +71,9 @@ const Register = () => {
               required: true,
               message: '请输入用户名',
             },
+            {
+              validator: validateUsername
+            }
           ]}
         >
           <Input/>
@@ -69,6 +87,14 @@ const Register = () => {
               required: true,
               message: '请输入密码',
             },
+            {
+              min: 8,
+              message: '密码不少于8个字符'
+            },
+            {
+              max: 24,
+              message: '密码不多于24个字符'
+            }
           ]}
         >
           <Input.Password/>
@@ -76,12 +102,13 @@ const Register = () => {
 
         <Form.Item
           label="确认密码"
-          name="password"
+          name="confirmPassword"
           rules={[
             {
               required: true,
               message: '再次确认密码',
             },
+            validateConfirm
           ]}
         >
           <Input.Password/>
