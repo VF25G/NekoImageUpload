@@ -1,4 +1,4 @@
-import AV, { Query, User } from 'leancloud-storage'
+import AV, { User } from 'leancloud-storage'
 
 AV.init({
   appId: "XJJiY8oiDeuTB7Skns4SHmVH-gzGzoHsz",
@@ -30,4 +30,4 @@ const Auth = {
   }
 }
 
-export default {}
+export { Auth }
