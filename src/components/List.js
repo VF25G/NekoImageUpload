@@ -1,14 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { useStores } from '../stores'
 import InfiniteScroll from 'react-infinite-scroller'
 import  { List, Spin } from 'antd'
+import styled from 'styled-components'
+
+const Img = styled.img`
+  width: 100px;
+  height: 120px;
+  object-fit: contain;
+  border: 1px solid #EEE;  
+`
 
 const Component = observer(() => {
   const { HistoryStore } = useStores();
   const loadMore = () =>{
     HistoryStore.find()
   }
+
+  useEffect(() => {
+    console.log('进入组件')
+    return (() => {
+      console.log('组件卸载')
+      HistoryStore.reset()
+    })
+  }, [])
+
   const options = {
     initialLoad: true,
     pageStart: 0,
@@ -25,7 +42,7 @@ const Component = observer(() => {
          renderItem={
            item => <List.Item key={item.id}>
              <div>
-               <img src={item.attributes.url.attributes.url} style={{height: '100px'}} alt=""/>
+               <Img src={item.attributes.url.attributes.url} alt=""/>
              </div>
              <div>
                <h5>{item.attributes.filename}</h5>
