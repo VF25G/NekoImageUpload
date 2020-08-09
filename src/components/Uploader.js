@@ -1,11 +1,11 @@
 import React, {useRef} from 'react'
 import {useStores} from '../stores'
-import {observer, useLocalStore } from 'mobx-react'
-import {message, Upload} from 'antd'
-import { InboxOutlined } from '@ant-design/icons';
+import {observer, useLocalStore} from 'mobx-react'
+import {message, Upload, Spin} from 'antd'
+import {InboxOutlined} from '@ant-design/icons'
 import styled from 'styled-components'
 
-const { Dragger } = Upload;
+const {Dragger} = Upload
 
 const Result = styled.div`
   margin-top: 30px;
@@ -57,8 +57,16 @@ const Component = observer(() => {
     beforeUpload: file => {
       ImageStore.setFile(file)
       ImageStore.setFilename(file.name)
-      if(UserStore.currentUser === null) {
+      if (UserStore.currentUser === null) {
         message.warning('请先登录再上传')
+        return false
+      }
+      if (!/(svg$)|(png$)|(jpg$)|(jpeg$)|(gif$)/ig.test(file.type)) {
+        message.error('只能上传svg/png/jpg/jpeg/gif格式的图片')
+        return false
+      }
+      if (file.size > 1024 * 1024 * 2) {
+        message.error('不支持超过2M的图片')
         return false
       }
       ImageStore.upload()
@@ -74,38 +82,41 @@ const Component = observer(() => {
 
   return (
     <div>
-      <Dragger {...props}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined/>
-        </p>
-        <p className="ant-upload-text">Click or drag file to this area to upload</p>
-        <p className="ant-upload-hint">
-          Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-          band files
-        </p>
-      </Dragger>
+      <Spin tip="上传中" spinning={ImageStore.isUploading}>
+        <Dragger {...props}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined/>
+          </p>
+          <p className="ant-upload-text">点击选择或者直接拖拽图片</p>
+          <p className="ant-upload-hint">
+            仅支持svg/png/jpg/jpeg/gif格式的图片,且大小不超过2M
+          </p>
+        </Dragger>
+      </Spin>
       {
         ImageStore.serverFile ? <Result>
-          <H1>上传结果</H1>
-          <dl>
-            <dt>链接</dt>
-            <dd><a target="_blank" href={ ImageStore.serverFile.attributes.url.attributes.url }>{ ImageStore.serverFile.attributes.url.attributes.url }</a></dd>
-            <dt>文件名</dt>
-            <dd>{ImageStore.filename}</dd>
-            <dt>图片预览</dt>
-            <dd>
-              <Image src={ ImageStore.serverFile.attributes.url.attributes.url } alt=""/>
-            </dd>
-            <dt>更多尺寸</dt>
-            <dd>
-              <input ref={ref1} onChange={bandWidthChange} placeholder="最大宽度（可选）"/>
-              <input ref={ref2} onChange={bandHeightChange} placeholder="最大高度（可选）"/>
-            </dd>
-            <dd>
-              <a target="_blank" href={store.fullStr}>{store.fullStr}</a>
-            </dd>
-          </dl>
-        </Result> :
+            <H1>上传结果</H1>
+            <dl>
+              <dt>链接</dt>
+              <dd><a target="_blank"
+                     href={ImageStore.serverFile.attributes.url.attributes.url}>{ImageStore.serverFile.attributes.url.attributes.url}</a>
+              </dd>
+              <dt>文件名</dt>
+              <dd>{ImageStore.filename}</dd>
+              <dt>图片预览</dt>
+              <dd>
+                <Image src={ImageStore.serverFile.attributes.url.attributes.url} alt=""/>
+              </dd>
+              <dt>更多尺寸</dt>
+              <dd>
+                <input ref={ref1} onChange={bandWidthChange} placeholder="最大宽度（可选）"/>
+                <input ref={ref2} onChange={bandHeightChange} placeholder="最大高度（可选）"/>
+              </dd>
+              <dd>
+                <a target="_blank" href={store.fullStr}>{store.fullStr}</a>
+              </dd>
+            </dl>
+          </Result> :
           null
       }
     </div>
