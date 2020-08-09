@@ -88,6 +88,7 @@
     "leancloud-storage": "^4.6.1",
     "mobx": "^5.15.5",
     "mobx-react": "^6.2.5",
+    "react-infinite-scroller": "^1.2.4",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.1"
   },
