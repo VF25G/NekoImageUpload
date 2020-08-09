@@ -1,5 +1,5 @@
-import { observable ,action} from 'mobx'
-import { Auth} from '../models'
+import { observable ,action } from 'mobx'
+import { Auth } from '../models'
 
 class UserStore {
   @observable currentUser = null

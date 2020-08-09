@@ -21,11 +21,12 @@ class AuthStore {
       Auth.login(this.values.username, this.values.password)
         .then(user => {
           console.log('登录成功')
-          UserStore.pullUser();
+          UserStore.pullUser()
           resolve(user)
         })
         .catch(error => {
           console.log('登录失败')
+          UserStore.resetUser()
           reject(error)
         })
     })
