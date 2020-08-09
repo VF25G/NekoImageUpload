@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {useStores} from '../stores'
-import {observer} from 'mobx-react'
+import {observer, useLocalStore } from 'mobx-react'
 import {message, Upload} from 'antd'
 import { InboxOutlined } from '@ant-design/icons';
 import styled from 'styled-components'
@@ -22,6 +22,36 @@ max-width: 300px;
 
 const Component = observer(() => {
   const {ImageStore, UserStore} = useStores()
+  const ref1 = useRef()
+  const ref2 = useRef()
+
+  const store = useLocalStore(() => ({
+    width: null,
+    setWidth(width) {
+      store.width = width
+    },
+    get widthStr() {
+      return store.width ? `/w/${store.width}` : ''
+    },
+    height: null,
+    setHeight(height) {
+      store.height = height
+    },
+    get heightStr() {
+      return store.height ? `/h/${store.height}` : ''
+    },
+    get fullStr() {
+      return ImageStore.serverFile.attributes.url.attributes.url + '?imageView2/0' + store.widthStr + store.heightStr
+    }
+  }))
+
+  const bandWidthChange = () => {
+    store.setWidth(ref1.current.value)
+  }
+  const bandHeightChange = () => {
+    store.setHeight(ref2.current.value)
+  }
+
   const props = {
     showUploadList: false,
     beforeUpload: file => {
@@ -68,8 +98,11 @@ const Component = observer(() => {
             </dd>
             <dt>更多尺寸</dt>
             <dd>
-              <input placeholder="最大宽度（可选）"/>
-              <input placeholder="最大高度（可选）"/>
+              <input ref={ref1} onChange={bandWidthChange} placeholder="最大宽度（可选）"/>
+              <input ref={ref2} onChange={bandHeightChange} placeholder="最大高度（可选）"/>
+            </dd>
+            <dd>
+              <a target="_blank" href={store.fullStr}>{store.fullStr}</a>
             </dd>
           </dl>
         </Result> :
