@@ -1,8 +1,16 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const StyledCenterDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 function Loading () {
   return (
-    <div>Loading..</div>
+    <StyledCenterDiv>
+      Loading...
+    </StyledCenterDiv>
   )
 }
 
