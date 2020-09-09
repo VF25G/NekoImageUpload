@@ -4,6 +4,7 @@ import {observer, useLocalStore} from 'mobx-react'
 import {message, Upload, Spin} from 'antd'
 import {InboxOutlined} from '@ant-design/icons'
 import styled from 'styled-components'
+import ContentInput from './ContentInput'
 
 const {Dragger} = Upload
 
@@ -12,12 +13,15 @@ const Result = styled.div`
   border: 1px dashed #ccc;
   padding: 20px;
 `
-const H1 = styled.h1`
-  margin: 20px 0;
+const StyledP = styled.p`
+  margin: 8px 0;
   text-align: center;
 `
 const Image = styled.img`
-max-width: 300px;
+  max-width: 300px;
+  max-height: 300px;
+  margin: 0 auto;
+  display: block;
 `
 
 const Component = observer(() => {
@@ -41,7 +45,11 @@ const Component = observer(() => {
       return store.height ? `/h/${store.height}` : ''
     },
     get fullStr() {
-      return ImageStore.serverFile.attributes.url.attributes.url + '?imageView2/0' + store.widthStr + store.heightStr
+      if (!store.widthStr && !store.heightStr) {
+        return ImageStore.serverFile.attributes.url.attributes.url
+      } else {
+        return ImageStore.serverFile.attributes.url.attributes.url + '?imageView2/0' + store.widthStr + store.heightStr
+      }
     }
   }))
 
@@ -95,28 +103,26 @@ const Component = observer(() => {
       </Spin>
       {
         ImageStore.serverFile ? <Result>
-            <H1>上传结果</H1>
+            <StyledP>{ImageStore.filename}</StyledP>
+            <section>
+              <Image src={ImageStore.serverFile.attributes.url.attributes.url} alt=""/>
+            </section>
             <dl>
               <dt>链接</dt>
-              <dd><a target="_blank"
-                     rel="noopener noreferrer"
-                     href={ImageStore.serverFile.attributes.url.attributes.url}>{ImageStore.serverFile.attributes.url.attributes.url}</a>
-              </dd>
-              <dt>文件名</dt>
-              <dd>{ImageStore.filename}</dd>
-              <dt>图片预览</dt>
               <dd>
-                <Image src={ImageStore.serverFile.attributes.url.attributes.url} alt=""/>
+                <a target="_blank"
+                   rel="noopener noreferrer"
+                   href={ImageStore.serverFile.attributes.url.attributes.url}>{ImageStore.serverFile.attributes.url.attributes.url}</a>
               </dd>
-              <dt>更多尺寸</dt>
+              <dt>自定义尺寸</dt>
               <dd>
                 <input ref={ref1} onChange={bandWidthChange} placeholder="最大宽度（可选）"/>
                 <input ref={ref2} onChange={bandHeightChange} placeholder="最大高度（可选）"/>
               </dd>
               <dd>
-                <a target="_blank"
-                   rel="noopener noreferrer"
-                   href={store.fullStr}>{store.fullStr} </a>
+                <ContentInput title="ImageURL" baseUrl={store.fullStr}/>
+                <ContentInput title="Markdown" baseUrl={store.fullStr}/>
+                <ContentInput title="HTML" baseUrl={store.fullStr}/>
               </dd>
             </dl>
           </Result> :
