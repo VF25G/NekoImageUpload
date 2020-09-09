@@ -99,6 +99,7 @@ const Component = observer(() => {
             <dl>
               <dt>链接</dt>
               <dd><a target="_blank"
+                     rel="noopener noreferrer"
                      href={ImageStore.serverFile.attributes.url.attributes.url}>{ImageStore.serverFile.attributes.url.attributes.url}</a>
               </dd>
               <dt>文件名</dt>
@@ -113,7 +114,9 @@ const Component = observer(() => {
                 <input ref={ref2} onChange={bandHeightChange} placeholder="最大高度（可选）"/>
               </dd>
               <dd>
-                <a target="_blank" href={store.fullStr}>{store.fullStr}</a>
+                <a target="_blank"
+                   rel="noopener noreferrer"
+                   href={store.fullStr}>{store.fullStr} </a>
               </dd>
             </dl>
           </Result> :

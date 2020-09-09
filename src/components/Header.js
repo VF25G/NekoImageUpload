@@ -52,6 +52,7 @@ const Header = observer(() => {
 
   useEffect(() => {
     UserStore.pullUser()
+    //eslint-disable-next-line
   }, [])
 
   return (
