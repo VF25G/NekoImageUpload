@@ -1,28 +1,31 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import LogoUrl from './logo.svg'
 import {NavLink, useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 import {Button} from 'antd'
-import { useStores} from '../stores'
-import { observer } from 'mobx-react' // 监控组件数据变动
+import {useStores} from '../stores'
+import {observer} from 'mobx-react' // 监控组件数据变动
 
 const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   padding: 10px 100px;
-  background-color: #02101F;
-  color: #FFFFFF;
+  background-color: #3F434B;
+  color: white;
 `
 const Logo = styled.img`
   height: 30px;
 `
 // 修改子组件样式，需要将子组件传入
 const StyledLink = styled(NavLink)`
-  color: #fff;
+  color: #83868A;
   margin-left: 30px;
-  
+  font-size: 16px;
+  &:hover{
+   color:#ACAAA7;
+  }
   &.active {
-    border-bottom: 1px solid #FFFFFF;
+    color: white;
   }
 `
 
@@ -32,11 +35,17 @@ const StyledLogin = styled.div`
 
 const StyledButton = styled(Button)`
   margin-left: 10px;
+    &.ant-btn-primary {
+    background: #52565C;
+    border-color: #52565C;
+    border-radius: 4px;
+    color: #B2B3B5;
+  }
 `
 
 const Header = observer(() => {
   const history = useHistory()
-  const { UserStore, AuthStore } = useStores()
+  const {UserStore, AuthStore} = useStores()
 
   const handleLogout = () => {
     AuthStore.logout()
@@ -67,7 +76,8 @@ const Header = observer(() => {
         {
           UserStore.currentUser ?
             <>
-              {UserStore.currentUser.attributes.username} <StyledButton type="primary" onClick={handleLogout}>注销</StyledButton>
+              {UserStore.currentUser.attributes.username} <StyledButton type="primary"
+                                                                        onClick={handleLogout}>注销</StyledButton>
             </> :
             <>
               <StyledButton type="primary" onClick={handleLogin}>登陆</StyledButton>

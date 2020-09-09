@@ -11,7 +11,7 @@ const StyledFooter = styled.footer`
 function Footer() {
   return (
     <StyledFooter>
-      <p>Footer</p>
+      <p>MIT Licensed | Copyright © 2020-present VF25G</p>
     </StyledFooter>
   )
 }
