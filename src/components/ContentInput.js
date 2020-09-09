@@ -40,7 +40,7 @@ function ContentInput(props) {
   return (
     <div>
       <StyledTitle>{title}</StyledTitle>
-      <StyledInput type="text" onClick={handleClick} value={formatUrl(title)}/>
+      <StyledInput type="text" onClick={handleClick} readOnly value={formatUrl(title)}/>
     </div>
   )
 }
