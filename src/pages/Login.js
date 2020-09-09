@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 const Wrapper = styled.div`
   max-width: 600px;
   margin: 30px auto;
-  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 20px;
 `
@@ -15,6 +15,10 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 30px;
+`
+
+const StyledButton = styled(Button)`
+  border-radius: 4px;
 `
 
 const layout = {
@@ -106,9 +110,9 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
+          <StyledButton type="primary" htmlType="submit">
             提交
-          </Button>
+          </StyledButton>
         </Form.Item>
       </Form>
     </Wrapper>

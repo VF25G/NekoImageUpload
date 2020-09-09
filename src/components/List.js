@@ -12,6 +12,11 @@ const Img = styled.img`
   border: 1px solid #EEE;  
 `
 
+const StyledCenterDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const Component = observer(() => {
   const { HistoryStore } = useStores();
   const loadMore = () =>{
@@ -55,9 +60,9 @@ const Component = observer(() => {
 
          }>
          {HistoryStore.isLoading && HistoryStore.hasMore && (
-           <div>
+           <StyledCenterDiv>
              <Spin tip="加载中"/>
-           </div>
+           </StyledCenterDiv>
          )}
        </List>
      </InfiniteScroll>
