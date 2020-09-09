@@ -121,7 +121,7 @@ const Component = observer(() => {
               </dd>
               <dd>
                 <ContentInput title="ImageURL" baseUrl={store.fullStr}/>
-                <ContentInput title="Markdown" baseUrl={store.fullStr}/>
+                <ContentInput title="Markdown" baseUrl={store.fullStr} filename={ImageStore.filename}/>
                 <ContentInput title="HTML" baseUrl={store.fullStr}/>
               </dd>
             </dl>

@@ -22,18 +22,18 @@ const StyledInput = styled.input`
 `
 
 function ContentInput(props) {
-  const {title, baseUrl} = props
-  const handleClick = (event) => event.target.select();
+  const {title, baseUrl, filename} = props
+  const handleClick = (event) => event.target.select()
 
   const formatUrl = (type) => {
     if (type === 'Markdown') {
-      return "![IMG_3787.JPG](" + baseUrl + ")"
+      return '![' + filename + '](' + baseUrl + ')'
     } else if (type === 'ImageURL') {
       return baseUrl
     } else if (type === 'HTML') {
-      return "<a href=\"" + baseUrl + "\" target=\"_blank\"><img src=\"" + baseUrl + "\" ></a>"
+      return '<a href="' + baseUrl + '" target="_blank"><img src="' + baseUrl + '" ></a>'
     } else {
-      return "undefined"
+      return 'undefined'
     }
   }
 
@@ -45,4 +45,4 @@ function ContentInput(props) {
   )
 }
 
-export default ContentInput;
+export default ContentInput
