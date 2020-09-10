@@ -8,10 +8,15 @@ const StyledFooter = styled.footer`
   color: #AAAAAA
 `
 
+const StyledP = styled.p`
+  margin: 0;
+`
+
 function Footer() {
   return (
     <StyledFooter>
-      <p>MIT Licensed | Copyright © 2020-present VF25G</p>
+      <StyledP>请勿上传违法中国大陆法律的图片，违者后果自负。</StyledP>
+      <StyledP>MIT Licensed | Copyright © 2020-present VF25G</StyledP>
     </StyledFooter>
   )
 }

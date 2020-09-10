@@ -120,7 +120,11 @@ const Component = observer(() => {
       {
         ImageStore.serverFile ? <Result>
             <section>
-              <Image src={ImageStore.serverFile.attributes.url.attributes.url} alt=""/>
+              <a href={ImageStore.serverFile.attributes.url.attributes.url}
+                 target="_blank"
+                 rel="noopener noreferrer">
+                <Image src={ImageStore.serverFile.attributes.url.attributes.url} alt=""/>
+              </a>
             </section>
             <StyledP>{ImageStore.filename}</StyledP>
             <dl>
