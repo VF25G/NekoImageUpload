@@ -24,6 +24,22 @@ const Image = styled.img`
   display: block;
 `
 
+const ChangeSize = styled.input`
+  border: 1px solid gray;
+  border-radius: 0.25rem;
+  padding: .375rem .75rem;
+  &:first-child {
+    margin-right: 0.4rem;
+  }
+  &:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  }
+`
+
 const Component = observer(() => {
   const {ImageStore, UserStore} = useStores()
   const ref1 = useRef()
@@ -103,10 +119,10 @@ const Component = observer(() => {
       </Spin>
       {
         ImageStore.serverFile ? <Result>
-            <StyledP>{ImageStore.filename}</StyledP>
             <section>
               <Image src={ImageStore.serverFile.attributes.url.attributes.url} alt=""/>
             </section>
+            <StyledP>{ImageStore.filename}</StyledP>
             <dl>
               <dt>链接</dt>
               <dd>
@@ -116,8 +132,8 @@ const Component = observer(() => {
               </dd>
               <dt>自定义尺寸</dt>
               <dd>
-                <input ref={ref1} onChange={bandWidthChange} placeholder="最大宽度（可选）"/>
-                <input ref={ref2} onChange={bandHeightChange} placeholder="最大高度（可选）"/>
+                <ChangeSize ref={ref1} onChange={bandWidthChange} placeholder="最大宽度（可选）"/>
+                <ChangeSize ref={ref2} onChange={bandHeightChange} placeholder="最大高度（可选）"/>
               </dd>
               <dd>
                 <ContentInput title="ImageURL" baseUrl={store.fullStr}/>
