@@ -20,9 +20,16 @@ const StyledCenterDiv = styled.div`
 `
 
 const StyledTitle = styled.div`
+  font-weight: bold;
   text-align: center;
-  width: 100px;
+  word-wrap:break-word; 
+  word-break:break-all;
+  width: 100%;
   margin: 10px auto 0;
+  @media (min-width: 576px) {
+    text-align: left;
+    margin: 0;
+  }
 `
 
 const ImageWrapper = styled.div`
@@ -85,11 +92,12 @@ const Component = observer(() => {
                    rel="noopener noreferrer">
                   <Img src={item.attributes.url.attributes.url} alt=""/>
                 </a>
-                <StyledTitle>
-                  <h5>{item.attributes.filename}</h5>
-                </StyledTitle>
               </ImageWrapper>
+
               <StyledItemContent>
+                <StyledTitle>
+                  {item.attributes.filename}
+                </StyledTitle>
                 <ContentInput title="ImageURL" baseUrl={item.attributes.url.attributes.url}/>
                 <ContentInput title="Markdown" filename={item.attributes.filename}
                               baseUrl={item.attributes.url.attributes.url}/>
