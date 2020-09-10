@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { observer } from 'mobx-react'
-import { useStores } from '../stores'
+import React, {useEffect} from 'react'
+import {observer} from 'mobx-react'
+import {useStores} from '../stores'
 import InfiniteScroll from 'react-infinite-scroller'
-import  { List, Spin } from 'antd'
+import {List, Spin} from 'antd'
 import styled from 'styled-components'
 import ContentInput from './ContentInput'
 
@@ -20,25 +20,37 @@ const StyledCenterDiv = styled.div`
 `
 
 const StyledTitle = styled.div`
-  width: 120px;
-  margin-left: 24px;
-  margin-right: auto;
+  width: 100px;
+  margin: 10px auto 0;
+`
+
+const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const StyledItemContent = styled.div`
   flex: 1;
-  padding: 0 24px;
+  width: 100%;
+  @media (min-width: 576px) {
+    padding: 0 24px;
+  }
 `
 
-const StyledList =styled(List)`
+const StyledList = styled(List)`
   .ant-list-item {
-    box-shadow: 0 2px 4px -4px rgba(0, 0, 0, 0.2)
+    flex-direction: column;
+    box-shadow: 0 2px 4px -4px rgba(0, 0, 0, 0.2);
+    @media (min-width: 576px) {
+      flex-direction: row;
+    }
   }
 `
 
 const Component = observer(() => {
-  const { HistoryStore } = useStores();
-  const loadMore = () =>{
+  const {HistoryStore} = useStores()
+  const loadMore = () => {
     HistoryStore.find()
   }
 
@@ -61,36 +73,37 @@ const Component = observer(() => {
 
   return (
     <div>
-     <InfiniteScroll {...options}>
-       <StyledList
-         dataSource={HistoryStore.list}
-         renderItem={
-           item => <List.Item key={item.id}>
-             <div>
-               <a href={item.attributes.url.attributes.url}
-                  target="_blank"
-                  rel="noopener noreferrer">
-               <Img src={item.attributes.url.attributes.url} alt=""/>
-               </a>
-             </div>
-             <StyledTitle>
-               <h5>{item.attributes.filename}</h5>
-             </StyledTitle>
-             <StyledItemContent>
-               <ContentInput title="ImageURL" baseUrl={item.attributes.url.attributes.url}/>
-               <ContentInput title="Markdown" filename={item.attributes.filename} baseUrl={item.attributes.url.attributes.url}/>
-               <ContentInput title="HTML" baseUrl={item.attributes.url.attributes.url}/>
-             </StyledItemContent>
-           </List.Item>
+      <InfiniteScroll {...options}>
+        <StyledList
+          dataSource={HistoryStore.list}
+          renderItem={
+            item => <List.Item key={item.id}>
+              <ImageWrapper>
+                <a href={item.attributes.url.attributes.url}
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  <Img src={item.attributes.url.attributes.url} alt=""/>
+                </a>
+                <StyledTitle>
+                  <h5>{item.attributes.filename}</h5>
+                </StyledTitle>
+              </ImageWrapper>
+              <StyledItemContent>
+                <ContentInput title="ImageURL" baseUrl={item.attributes.url.attributes.url}/>
+                <ContentInput title="Markdown" filename={item.attributes.filename}
+                              baseUrl={item.attributes.url.attributes.url}/>
+                <ContentInput title="HTML" baseUrl={item.attributes.url.attributes.url}/>
+              </StyledItemContent>
+            </List.Item>
 
-         }>
-         {HistoryStore.isLoading && HistoryStore.hasMore && (
-           <StyledCenterDiv>
-             <Spin tip="加载中"/>
-           </StyledCenterDiv>
-         )}
-       </StyledList>
-     </InfiniteScroll>
+          }>
+          {HistoryStore.isLoading && HistoryStore.hasMore && (
+            <StyledCenterDiv>
+              <Spin tip="加载中"/>
+            </StyledCenterDiv>
+          )}
+        </StyledList>
+      </InfiniteScroll>
     </div>
   )
 })
