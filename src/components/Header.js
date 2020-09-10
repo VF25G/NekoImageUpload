@@ -43,13 +43,21 @@ const Logo = styled.img`
 // 修改子组件样式，需要将子组件传入
 const StyledLink = styled(NavLink)`
   color: #83868A;
-  margin-left: 30px;
-  font-size: 16px;
+  margin-left: 4px;
+  font-size: 12px;
   &:hover{
    color:#ACAAA7;
   }
   &.active {
     color: white;
+  }
+  @media (min-width: 576px) {
+    margin-left: 8px;
+    font-size: 16px;
+  }
+  @media (min-width: 768px) {
+    margin-left: 30px;
+    font-size: 16px;
   }
 `
 
@@ -58,12 +66,19 @@ const StyledLogin = styled.div`
 `
 
 const StyledButton = styled(Button)`
-  margin-left: 10px;
-    &.ant-btn-primary {
+  margin-left: 4px;
+  font-size: 12px;
+  &.ant-btn-primary {
     background: #52565C;
     border-color: #52565C;
     border-radius: 4px;
     color: #B2B3B5;
+  }
+  @media (min-width: 576px) {
+    font-size: 14px;
+  }
+  @media (min-width: 768px) {
+    margin-left: 10px;
   }
 `
 
