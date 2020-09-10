@@ -20,6 +20,7 @@ const StyledCenterDiv = styled.div`
 `
 
 const StyledTitle = styled.div`
+  text-align: center;
   width: 100px;
   margin: 10px auto 0;
 `

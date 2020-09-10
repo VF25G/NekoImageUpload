@@ -11,15 +11,19 @@ const {Dragger} = Upload
 const Result = styled.div`
   margin-top: 30px;
   border: 1px dashed #ccc;
-  padding: 20px;
+  overflow: hidden;
+  padding: 14px 5px 0 5px;
+  @media (min-width: 321px) {
+    padding: 14px 14px 0 14px;
+  }
 `
 const StyledP = styled.p`
   margin: 8px 0;
   text-align: center;
 `
 const Image = styled.img`
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 280px;
+  max-height: 280px;
   margin: 0 auto;
   display: block;
 `
@@ -28,6 +32,7 @@ const ChangeSize = styled.input`
   border: 1px solid gray;
   border-radius: 0.25rem;
   padding: .375rem .75rem;
+  margin-top: 0.3rem;
   &:first-child {
     margin-right: 0.4rem;
   }
