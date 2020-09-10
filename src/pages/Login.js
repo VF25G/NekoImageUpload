@@ -31,9 +31,9 @@ const layout = {
 }
 const tailLayout = {
   wrapperCol: {
-    offset: 6,
-    span: 18,
-  },
+    xs: {span: 18},
+    sm: {span: 18, offset: 6}
+  }
 }
 
 const Register = () => {

@@ -42,7 +42,11 @@ class AuthStore {
           resolve(user)
         })
         .catch(error => {
-          message.error('注册失败')
+          if (error.toString().indexOf("Username has already been taken")) {
+            message.error('账户已存在')
+          } else {
+            message.error('注册失败')
+          }
           UserStore.resetUser()
           reject(error)
         })
