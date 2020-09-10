@@ -97,7 +97,7 @@ const Header = observer(() => {
           <StyledLink to="/history" activeClassName="active">上传历史</StyledLink>
           <StyledLink to="/about" activeClassName="active">关于我</StyledLink>
         </nav>
-        <StyledLogin class="test">
+        <StyledLogin>
           {
             UserStore.currentUser ?
               <>
