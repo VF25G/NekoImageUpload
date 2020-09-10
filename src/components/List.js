@@ -4,12 +4,14 @@ import { useStores } from '../stores'
 import InfiniteScroll from 'react-infinite-scroller'
 import  { List, Spin } from 'antd'
 import styled from 'styled-components'
+// import ContentInput from './ContentInput'
 
 const Img = styled.img`
   width: 100px;
   height: 120px;
   object-fit: contain;
   border: 1px solid #EEE;  
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
 `
 
 const StyledCenterDiv = styled.div`
@@ -55,6 +57,7 @@ const Component = observer(() => {
              </div>
              <div>
                <a target="_blank" rel="noopener noreferrer" href={item.attributes.url.attributes.url}>{item.attributes.url.attributes.url}</a>
+               {/*<ContentInput title="ImageURL" baseUrl={item.attributes.url.attributes.url}/>*/}
              </div>
            </List.Item>
 

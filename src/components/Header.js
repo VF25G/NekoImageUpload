@@ -7,12 +7,36 @@ import {useStores} from '../stores'
 import {observer} from 'mobx-react' // 监控组件数据变动
 
 const StyledHeader = styled.header`
-  display: flex;
-  align-items: center;
-  padding: 10px 100px;
   background-color: #3F434B;
   color: white;
 `
+
+const StyledWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+  
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+  
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+  
+  
+  @media (max-width: 1470px) {
+    max-width: 100%;
+  }
+`
+
 const Logo = styled.img`
   height: 30px;
 `
@@ -66,25 +90,27 @@ const Header = observer(() => {
 
   return (
     <StyledHeader>
-      <Logo src={LogoUrl}/>
-      <nav>
-        <StyledLink to="/" exact activeClassName="active">首页</StyledLink>
-        <StyledLink to="/history" activeClassName="active">上传历史</StyledLink>
-        <StyledLink to="/about" activeClassName="active">关于我</StyledLink>
-      </nav>
-      <StyledLogin>
-        {
-          UserStore.currentUser ?
-            <>
-              {UserStore.currentUser.attributes.username} <StyledButton type="primary"
-                                                                        onClick={handleLogout}>注销</StyledButton>
-            </> :
-            <>
-              <StyledButton type="primary" onClick={handleLogin}>登陆</StyledButton>
-              <StyledButton type="primary" onClick={handleRegister}>注册</StyledButton>
-            </>
-        }
-      </StyledLogin>
+      <StyledWrapper>
+        <Logo src={LogoUrl}/>
+        <nav>
+          <StyledLink to="/" exact activeClassName="active">首页</StyledLink>
+          <StyledLink to="/history" activeClassName="active">上传历史</StyledLink>
+          <StyledLink to="/about" activeClassName="active">关于我</StyledLink>
+        </nav>
+        <StyledLogin class="test">
+          {
+            UserStore.currentUser ?
+              <>
+                {UserStore.currentUser.attributes.username} <StyledButton type="primary"
+                                                                          onClick={handleLogout}>注销</StyledButton>
+              </> :
+              <>
+                <StyledButton type="primary" onClick={handleLogin}>登陆</StyledButton>
+                <StyledButton type="primary" onClick={handleRegister}>注册</StyledButton>
+              </>
+          }
+        </StyledLogin>
+      </StyledWrapper>
     </StyledHeader>
   )
 })
